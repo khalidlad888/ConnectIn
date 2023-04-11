@@ -8,4 +8,11 @@ console.log("Users router loaded");
 router.get('/profile', usersController.profile);
 router.get('/chats', usersController.chats);
 
+router.get('/sign-up', usersController.signUp);
+
+router.get('/sign-in', usersController.signIn);
+
+
+router.post('/create', usersController.create);
+
 module.exports = router;

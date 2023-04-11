@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/facelook_development');
+mongoose.connect('mongodb://localhost/faceloop_development');
 
 const db = mongoose.connection;
 
