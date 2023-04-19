@@ -29,7 +29,15 @@ module.exports.home = function (req, res) {
     //         return res.redirect('back');
     //     });
 
-    Post.find({}).populate('user').exec()
+    Post.find({})
+        .populate('user')
+        .populate({
+            path: 'comments',
+            populate: {
+                path: 'user'
+            }
+        })
+        .exec()
         .then(posts => {
             return res.render('home', {
                 title: "Home",
