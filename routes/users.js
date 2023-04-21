@@ -6,7 +6,9 @@ const usersController = require('../controllers/users_controller');
 
 console.log("Users router loaded");
 
-router.get('/profile', passport.checkAuthentication, usersController.profile);
+router.get('/profile/:id', passport.checkAuthentication, usersController.profile);
+router.post('/update/:id', passport.checkAuthentication, usersController.update);
+
 router.get('/chats', passport.checkAuthentication, usersController.chats);
 
 router.get('/sign-up', usersController.signUp);

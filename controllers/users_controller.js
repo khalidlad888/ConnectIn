@@ -3,11 +3,40 @@ const User = require('../models/user');
 
 module.exports.profile = function (req, res) {
     // return res.end('<h1> User Profile </h1>');
-
-    return res.render('profile', {
-        title: "Profile"
+    User.findById(req.params.id).then(user => {
+        return res.render('profile', {
+            title: "Profile",
+            profile_user: user
+        });
     });
 };
+
+// module.exports.update = function (req, res) {
+//     if (req.user.id == req.params.id) {
+//         User.findByIdAndUpdate(req.params.id, req.body, function(err, user){
+//             return res.redirect('back');
+//         })
+//     }else{
+//         return res.status(401).send('Unauthorized')
+//     };
+// };
+
+module.exports.update = function (req, res) {
+    if (req.user.id == req.params.id) {
+        User.findByIdAndUpdate(req.params.id, req.body)
+            .then((user) => {
+                return res.redirect('back');
+            })
+            .catch((err) => {
+                console.error(err);
+                return res.status(500).send('Internal Server Error');
+            });
+    } else {
+        return res.status(401).send('Unauthorized')
+    };
+};
+
+
 
 module.exports.chats = function (req, res) {
     return res.end('<h1> User Chats</h1>');
@@ -15,7 +44,7 @@ module.exports.chats = function (req, res) {
 
 //rendering the signup page
 module.exports.signUp = function (req, res) {
-    if(req.isAuthenticated()){
+    if (req.isAuthenticated()) {
         return res.redirect('/users/profile');
     };
 
@@ -26,7 +55,7 @@ module.exports.signUp = function (req, res) {
 
 //rendering the signin page
 module.exports.signIn = function (req, res) {
-    if(req.isAuthenticated()){
+    if (req.isAuthenticated()) {
         return res.redirect('/users/profile');
     };
 
@@ -59,9 +88,9 @@ module.exports.createSession = function (req, res) {
     return res.redirect('/');
 };
 
-module.exports.destroySession = function(req, res) {
-    req.logout(function(err){
-        if(err){
+module.exports.destroySession = function (req, res) {
+    req.logout(function (err) {
+        if (err) {
             console.log(err, "Error in logging out");
         };
         return res.redirect('/');
