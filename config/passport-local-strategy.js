@@ -6,39 +6,29 @@ const User = require('../models/user');
 
 //Authentication using passport
 passport.use(new LocalStrategy({
-    usernameField: 'email'
+    usernameField: 'email',
+    passReqToCallback: true
 },
-    function (email, password, done) {
+    function (req, email, password, done) {
         try {
             User.findOne({ email: email }).then((user) => {
                 if (!user || user.password != password) {
-                    console.log("Invalid username or password");
+                    // console.log("Invalid username or password");
+                    // Using flash and noty to display messages
+                    req.flash('error', 'Invalid Username or Password');
                     return done(null, false);
-                }
-
+                };
                 return done(null, user);
             });
         } catch (err) {
             if (err) {
-                console.log("Error in finding user --> Passport");
+                req.flash('error', err);
+                // console.log("Error in finding user --> Passport");
                 return done(err);
             };
         };
-        //     User.findOne({email:email}, function(err, user){
-        //         if (err){
-        //             console.log("Error in finding user --> Passport");
-        //             return done(err);
-        //         };
-
-        //         if(!user || user.password != password){
-        //             console.log("Invalid username or password");
-        //             return done(null, false);
-        //         };
-
-        //         return done(null, user);
-        //     });
     }
-))
+));
 
 //Serializing the user to decide which key is to be kept in the cookies
 passport.serializeUser(function (user, done) {
@@ -51,14 +41,6 @@ passport.deserializeUser(function (id, done) {
         User.findById(id).then((user) => {
             return done(null, user);
         });
-        // User.findById(id, function (err, user) {
-        //     if (err) {
-        //         console.log("Error in finding user --> Passport");
-        //         return done(err);
-        //     };
-
-        //     return done(null, user);
-        // });
     } catch (err){
         console.log("Error in finding user --> Passport");
         return done(err);

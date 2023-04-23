@@ -11,24 +11,17 @@ module.exports.profile = function (req, res) {
     });
 };
 
-// module.exports.update = function (req, res) {
-//     if (req.user.id == req.params.id) {
-//         User.findByIdAndUpdate(req.params.id, req.body, function(err, user){
-//             return res.redirect('back');
-//         })
-//     }else{
-//         return res.status(401).send('Unauthorized')
-//     };
-// };
 
 module.exports.update = function (req, res) {
     if (req.user.id == req.params.id) {
         User.findByIdAndUpdate(req.params.id, req.body)
             .then((user) => {
+                req.flash('success', 'Profile Updated Successfully');
                 return res.redirect('back');
             })
             .catch((err) => {
                 console.error(err);
+                req.flash('error', err);
                 return res.status(500).send('Internal Server Error');
             });
     } else {
@@ -73,26 +66,31 @@ module.exports.create = async function (req, res) {
         User.findOne({ email: req.body.email }).then((user) => {
             if (!user) {
                 let user = User.create(req.body);
+                req.flash('success', 'Signed Up Successfully');
                 return res.redirect('/users/sign-in');
             } else {
                 return res.redirect('back');
             };
         });
     } catch (err) {
-        console.log(err, "Error in creating the user");
+        req.flash('error', err);
+        // console.log(err, "Error in creating the user");
     };
 };
 
 //Sign ip data and create the session for the user
 module.exports.createSession = function (req, res) {
+    req.flash('success', 'Signed In Successfully');
     return res.redirect('/');
 };
 
 module.exports.destroySession = function (req, res) {
     req.logout(function (err) {
         if (err) {
-            console.log(err, "Error in logging out");
+            req.flash('error', 'Error in logging out');
+            // console.log(err, "Error in logging out");
         };
+        req.flash('success', 'Signed Out Successfully');
         return res.redirect('/');
     });
 };
