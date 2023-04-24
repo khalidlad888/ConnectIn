@@ -1,15 +1,72 @@
-#home-container{
+#home-container {
     display: flex;
 
-    #feed-posts{
+    #feed-posts {
         width: 70%;
         padding: 10px;
     }
 
-    #user-friends{
+    #user-friends {
         width: 30%;
         height: 100%;
         padding: 10px;
         border-left: 1px solid lightgray;
     }
+}
+
+#new-post-form input[type="submit"] {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#new-post-form input[type="submit"]:hover {
+    background-color: #3e8e41;
+}
+
+#new-comments-form input[type="submit"] {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#new-comments-form input[type="submit"]:hover {
+    background-color: #3e8e41;
+}
+
+textarea {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+    height: 100px;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #0077FF;
+    box-shadow: 0 0 3px rgba(0, 119, 255, 0.5);
+}
+
+.delete-button {
+    background-color: #FF4136;
+    text-decoration: none;
+    color: #fff;
+    border: none;
+    padding: 2px 4px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+    background-color: #E71D36;
 }

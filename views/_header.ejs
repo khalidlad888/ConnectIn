@@ -1,9 +1,9 @@
 <header>
-    <h1>Faceloop</h1>
+    <a href="/"> <h1>MindShare</h1></a>
     <ul>
         <% if (locals.user) {%>
             <li>
-                <a href="/users/profile">
+                <a href="/users/profile/<%= user.id%>">
                     <%= user.name %>
                 </a>
             </li>
