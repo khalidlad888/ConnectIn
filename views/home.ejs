@@ -3,7 +3,7 @@
 <div id="home-container">
     <section id="feed-posts">
         <% if (locals.user) { %>
-            <h4>Whats on your mind</h4>
+            <h4>Whats on your mind, <%= user.name%> ?</h4>
             <form action="/posts/create" id="new-post-form" method="POST">
                 <textarea name="content" id="" cols="30" rows="4" placeholder="Type here..." required></textarea>
                 <input type="submit" value="Post">
