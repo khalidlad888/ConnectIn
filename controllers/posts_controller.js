@@ -1,21 +1,26 @@
 const Post = require('../models/post');
 const Comment = require('../models/comment');
+const postsMailer = require('../mailers/posts_mailer')
 
-
-module.exports.create = function (req, res) {
-  Post.create({
-    content: req.body.content,
-    user: req.user._id
-  })
-    .then((post) => {
-      req.flash('success', 'Post Created Successfully');
-      return res.redirect('back');
-    })
-    .catch((err) => {
-      req.flash('error', 'Error in Creating Post');
-      // console.log('Error in creating post', err);
-      return;
+module.exports.create = async function (req, res) {
+  try {
+    let post = await Post.create({
+      content: req.body.content,
+      user: req.user._id,
     });
+
+    if(post){
+      await post.populate('user', 'name email');
+      postsMailer.newPost(post);
+    }
+
+    req.flash('success', 'Post Created Successfully');
+    return res.redirect('back');
+  } catch (err) {
+    req.flash('error', 'Error in Creating Post');
+    console.log('Error in creating post', err);
+    return;
+  }
 };
 
 
