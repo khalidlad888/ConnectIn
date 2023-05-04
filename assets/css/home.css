@@ -20,17 +20,6 @@
 #new-post-form input[type="submit"]:hover {
   background-color: #3e8e41; }
 
-#new-comments-form input[type="submit"] {
-  background-color: #4CAF50;
-  color: #fff;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer; }
-
-#new-comments-form input[type="submit"]:hover {
-  background-color: #3e8e41; }
-
 textarea {
   font-family: Arial, sans-serif;
   font-size: 16px;
@@ -45,7 +34,7 @@ textarea:focus {
   border-color: #0077FF;
   box-shadow: 0 0 3px rgba(0, 119, 255, 0.5); }
 
-.delete-button {
+.delete-post-button {
   background-color: #FF4136;
   text-decoration: none;
   color: #fff;
@@ -55,5 +44,43 @@ textarea:focus {
   cursor: pointer;
   transition: background-color 0.3s ease; }
 
-.delete-button:hover {
+.delete-post-button:hover {
+  background-color: #E71D36; }
+
+#post-comment-submit {
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer; }
+
+#post-comment-submit:hover {
+  background-color: #3e8e41; }
+
+#post-comment-text {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: vertical;
+  height: 16px; }
+
+#post-comment-text:focus {
+  outline: none;
+  border-color: #0077FF;
+  box-shadow: 0 0 3px rgba(0, 119, 255, 0.5); }
+
+.delete-comment-button {
+  background-color: #FF4136;
+  text-decoration: none;
+  color: #fff;
+  border: none;
+  padding: 1px 2px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; }
+
+.delete-comment-button:hover {
   background-color: #E71D36; }

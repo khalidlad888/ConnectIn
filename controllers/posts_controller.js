@@ -9,10 +9,18 @@ module.exports.create = async function (req, res) {
       user: req.user._id,
     });
 
-    if(post){
+    if (req.xhr) {
+
       await post.populate('user', 'name email');
       postsMailer.newPost(post);
-    }
+
+      return res.status(200).json({
+        data: {
+          post: post
+        },
+        message: 'Post Created!'
+      })
+    };
 
     req.flash('success', 'Post Created Successfully');
     return res.redirect('back');
@@ -24,25 +32,32 @@ module.exports.create = async function (req, res) {
 };
 
 
-module.exports.destroy = function (req, res) {
-  Post.findById(req.params.id)
-    .then(post => {
-      if (post.user == req.user.id) {
-        req.flash('success', 'Post and its Comments Deleted Successfully');
-        return post.deleteOne();
-      } else {
-        req.flash('error', 'User is not authorized to delete this post');
-        // throw new Error("User is not authorized to delete this post");
+module.exports.destroy = async function (req, res) {
+  try {
+    let post = await Post.findById(req.params.id)
+    if (post.user == req.user.id) {
+      post.deleteOne();
+      await Comment.deleteMany({ post: req.params.id });
+
+      if (req.xhr) {
+
+        return res.status(200).json({
+          data: {
+            post_id: req.params.id
+          },
+          message: 'Post Deleted!'
+        })
       }
-    })
-    .then(() => {
-      return Comment.deleteMany({ post: req.params.id });
-    })
-    .then(() => {
+
+      req.flash('success', 'Post and its Comments Deleted Successfully');
       return res.redirect("back");
-    })
-    .catch(err => {
-      console.error(err);
-      return res.redirect("back");
-    });
-};  
+
+    } else {
+      req.flash('error', 'User is not authorized to delete this post');
+      return res.redirect('back');
+    }
+  } catch (error) {
+    console.error(error);
+    return res.redirect("back");
+  }
+};
