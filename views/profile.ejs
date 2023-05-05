@@ -1,13 +1,13 @@
 <link rel="stylesheet" href="/css/user_profile.css">
 
-<h1>
-    <%= title %> 
-</h1>
+<!-- <h2>
+    <%= profile_user.name %> <%= title %> 
+</h2>
 
 <img src="<%= profile_user.avatar %>" alt="<%= profile_user.name %>" width="100">
 
 <% if (user.id == profile_user.id) { %>
-    <!-- If user is logged in show edit form -->
+    If user is logged in show edit form
     <form action="/users/update/<%= profile_user.id %>" enctype="multipart/form-data" method="post">
         <input type="text" name="name" placeholder="Your Name" value="<%= profile_user.name%>" required>
         <input type="email" name="email" placeholder="Your Email" value="<%= profile_user.email%>" required>
@@ -17,7 +17,43 @@
     </form>
 
 <% } else {%>
-    <!-- else show only profile info -->
+    else show only profile info
     <p><%= profile_user.name %></p>
     <p><%= profile_user.email %></p>
-<% } %>
+<% } %> -->
+
+
+<div class="container">
+    <div id="profile">
+
+        <h2>
+            <%= profile_user.name %>
+                <%= title %>
+        </h2>
+
+        <img src="<%= profile_user.avatar %>" alt="<%= profile_user.name %>" class="profile-photo">
+
+        <% if (user.id==profile_user.id) { %>
+            <!-- If user is logged in show edit form -->
+            <form action="/users/update/<%= profile_user.id %>" enctype="multipart/form-data" method="post">
+                <input type="text" name="name" placeholder="Your Name" value="<%= profile_user.name%>" required>
+                <input type="email" name="email" placeholder="Your Email" value="<%= profile_user.email%>" required>
+
+                <div class="file-upload">
+                    <input type="file" name="avatar" id="avatar">
+                    <label for="avatar">Choose a file</label>
+                </div>
+
+                <input type="submit" value="Update" class="update-btn">
+            </form>
+            <% } else {%>
+                <!-- else show only profile info -->
+                <p>
+                    <%= profile_user.name %>
+                </p>
+                <p>
+                    <%= profile_user.email %>
+                </p>
+                <% } %>
+    </div>
+</div>

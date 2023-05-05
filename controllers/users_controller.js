@@ -49,7 +49,7 @@ module.exports.update = async function (req, res) {
 
 
 module.exports.chats = function (req, res) {
-    return res.end('<h1> User Chats</h1>');
+    return res.end('<h1> User Chats </h1>');
 };
 
 //rendering the signup page
