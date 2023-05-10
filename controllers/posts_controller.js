@@ -10,10 +10,10 @@ module.exports.create = async function (req, res) {
       user: req.user._id,
     });
 
-    if (req.xhr) {
+    post = await post.populate('user', 'name email');
+    postsMailer.newPost(post);
 
-      post = await post.populate('user', 'name email');
-      postsMailer.newPost(post);
+    if (req.xhr) {
 
       return res.status(200).json({
         data: {

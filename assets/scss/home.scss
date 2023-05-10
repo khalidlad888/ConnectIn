@@ -1,5 +1,6 @@
 #home-container {
     display: flex;
+    background-color: white;
 
     #feed-posts {
         width: 70%;
@@ -101,4 +102,43 @@ textarea:focus {
 
 .delete-comment-button:hover {
     background-color: #E71D36;
+}
+
+.posts-list {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    width: 100%;
+}
+
+#posts-list-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin: 20px;
+    padding: 20px;
+    background-color: whitesmoke;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    width: 50%;
+}
+
+#posts-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin: 20px;
+    padding: 20px;
+    background-color: whitesmoke;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    width: 50%;
 }
